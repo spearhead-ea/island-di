@@ -2,6 +2,7 @@
 
 An island compatible DI that understand distributed environment.
 
+
 [![Build Status](https://api.travis-ci.org/spearhead-ea/island-di.svg?branch=master)](https://travis-ci.org/spearhead-ea/island-di)
 [![NPM version](https://badge.fury.io/js/island-di.svg)](http://badge.fury.io/js/island-di)
 [![Dependency Status](https://david-dm.org/spearhead-ea/island-di/status.svg)](https://david-dm.org/spearhead-ea/island-di)
