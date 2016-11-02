@@ -15,5 +15,5 @@ script:
 
 after_script:
   - npm i coveralls && cat ./coverage/lcov-remap.info | coveralls
-  - npm i codeclimate-test-reporter && CODECLIMATE_REPO_TOKEN=9659b75eb35f7695fcbf58818e218f069a9a681206a9c9ea331e8b30fa386336 codeclimate-test-reporter < ./coverage/lcov-remap.info
+  - npm i codeclimate-test-reporter && CODECLIMATE_REPO_TOKEN=9adc11da92bb65c25ddf5655c4d701855f0ccc4754be93dc4119a7d49f123cb4 codeclimate-test-reporter < ./coverage/lcov-remap.info
 
