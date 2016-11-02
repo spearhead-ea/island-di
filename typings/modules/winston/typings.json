@@ -1,0 +1,12 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "/Users/kson/Documents/github/npm-winston/typings.json",
+    "raw": "file:/Users/kson/Documents/github/npm-winston/typings.json",
+    "main": "lib/winston.d.ts",
+    "version": "2.2.0",
+    "global": false,
+    "name": "winston",
+    "type": "typings"
+  }
+}
