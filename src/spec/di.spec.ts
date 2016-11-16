@@ -1,5 +1,5 @@
 import 'source-map-support/register';
-import * as Promise from 'bluebird';
+import * as Bluebird from 'bluebird';
 import { Di } from '../di';
 import ObjectWrapper from '../object-wrapper';
 
@@ -48,7 +48,7 @@ class Koo {
 }
 
 function disposerFactory(resource) {
-  return Promise.resolve(resource.acquire())
+  return Bluebird.resolve(resource.acquire())
     .disposer(() => {
       resource.release();
     });
