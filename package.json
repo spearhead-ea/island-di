@@ -5,7 +5,9 @@
   "main": "dist/di.js",
   "typings": "dist/di.d.ts",
   "author": "ted <deadlines@gmail.com>",
-  "contributors": [],
+  "contributors": [
+    "heycalmdown <hey.calmdown@gmail.com>"
+  ],
   "scripts": {
     "prepublish": "gulp build",
     "build": "gulp build",
