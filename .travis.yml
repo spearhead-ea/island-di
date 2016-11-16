@@ -7,7 +7,7 @@ node_js:
   - "6"
 
 install:
-  - npm install -g jasmine gulp typescript@1
+  - npm install -g jasmine gulp typescript
   - npm install
 
 script:
