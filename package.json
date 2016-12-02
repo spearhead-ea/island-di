@@ -1,7 +1,7 @@
 {
   "name": "island-di",
   "version": "1.0.0",
-  "description": "n island compatible di that understand distributed environment",
+  "description": "An island compatible di that understand distributed environment",
   "main": "dist/di.js",
   "typings": "dist/di.d.ts",
   "author": "ted <deadlines@gmail.com>",
