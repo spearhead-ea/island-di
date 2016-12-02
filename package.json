@@ -22,6 +22,7 @@
     "@types/jasmine": "^2.5.38",
     "@types/lodash": "^4.14.39",
     "@types/node": "^6.0.48",
+    "@types/winston": "0.0.32",
     "bluebird": "<3.0.0",
     "inversify": "2.0.0-beta.5",
     "island-loggers": "^0.1.0",
