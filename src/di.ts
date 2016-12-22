@@ -3,11 +3,12 @@ import * as Promise from 'bluebird';
 import { logger } from './logger';
 import * as _ from 'lodash';
 import * as inversify from 'inversify';
-import ObjectWraper from './object-wrapper';
 import ObjectFactory from './object-factory';
 
-export namespace Di {
+import  { default as ObjectWrapper } from './object-wrapper';
+export { ObjectWrapper };
 
+export namespace Di {
   const MetadataKeys = {
     InversifyParamTypes: 'invesify:paramtypes',
     DesignParamTypes: 'design:paramtypes',
@@ -59,7 +60,7 @@ export namespace Di {
       return this;
     }
 
-    bindObjectWrapper(aClass: typeof ObjectWraper): Container {
+    bindObjectWrapper(aClass: typeof ObjectWrapper): Container {
       this.kernel.bind(aClass as any).toDynamicValue(() => ObjectFactory.get(aClass));
       return this;
     }
