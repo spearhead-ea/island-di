@@ -4,9 +4,9 @@ import { logger } from './logger';
 import * as _ from 'lodash';
 import * as inversify from 'inversify';
 import ObjectFactory from './object-factory';
-
 import  { default as ObjectWrapper } from './object-wrapper';
-export { ObjectWrapper };
+
+export { ObjectWrapper, ObjectFactory };
 
 export namespace Di {
   const MetadataKeys = {
