@@ -1,6 +1,6 @@
 {
   "name": "island-di",
-  "version": "1.1.0-dev",
+  "version": "1.1.1",
   "description": "An island compatible di that understand distributed environment",
   "main": "dist/di.js",
   "typings": "dist/di.d.ts",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@types/bluebird": "^3.0.35",
-    "@types/inversify": "^2.0.31",
+    "@types/inversify": "2.0.32",
     "@types/jasmine": "^2.5.38",
     "@types/lodash": "^4.14.39",
     "@types/node": "^6.0.48",
