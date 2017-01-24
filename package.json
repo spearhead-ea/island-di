@@ -25,7 +25,7 @@
     "@types/winston": "0.0.32",
     "bluebird": "<3.0.0",
     "inversify": "2.0.0-beta.5",
-    "island-loggers": "^0.1.0",
+    "island-loggers": "^1.0.0",
     "lodash": "^4.16.1",
     "reflect-metadata": "^0.1.8",
     "winston": "^2.2.0"
