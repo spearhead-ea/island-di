@@ -20,7 +20,7 @@
     "@types/bluebird": "3.5.5",
     "@types/inversify": "2.0.32",
     "@types/jasmine": "^2.5.38",
-    "@types/lodash": "^4.14.39",
+    "@types/lodash": "4.14.56",
     "@types/node": "^6.0.48",
     "@types/winston": "0.0.32",
     "bluebird": "<3.0.0",
