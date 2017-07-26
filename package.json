@@ -13,7 +13,7 @@
     "build": "gulp build",
     "watch": "gulp build && gulp watch",
     "clean": "gulp clean",
-    "test": "gulp build && DEBUG=* jasmine",
+    "test": "gulp build && DEBUG=* ISLAND_LOGGER_LEVEL=crit jasmine",
     "coverage": "gulp coverage"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
     "gulp-jasmine": "^2.4.1",
     "gulp-sourcemaps": "^1.6.0",
     "remap-istanbul": "^0.6.4",
-    "std-mocks": "^1.0.1"
+    "std-mocks": "^1.0.1",
+    "typescript": "<2.2"
   }
 }
