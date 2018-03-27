@@ -27,6 +27,7 @@ export namespace Di {
   export class Container {
     private kernel: inversify.interfaces.Kernel;
     private scopeResources: ScopeResource[] = [];
+    private boundConstants: InjectionIdentifier<any>[] = [];
 
     constructor() {
       this.kernel = new inversify.Kernel();
@@ -55,8 +56,17 @@ export namespace Di {
       }, aClass);
     }
 
+    getConstantValue<T>(identifier: InjectionIdentifier<any>): T {
+      return this.kernel.get(identifier);
+    }
+
+    getConstantIdentifierList(): InjectionIdentifier<any>[] {
+      return this.boundConstants;
+    }
+
     bindConstant(identifier: InjectionIdentifier<any>, value: any): Container {
       this.kernel.bind(identifier).toConstantValue(value);
+      this.boundConstants.push(identifier);
       return this;
     }
 

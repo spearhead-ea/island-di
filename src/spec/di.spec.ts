@@ -69,6 +69,7 @@ class TestScopeMethod {
 
 describe('container', () => {
   let container = Di.container;
+  let constant = { test: 'constant' };
 
   beforeAll(() => {
     container
@@ -79,8 +80,25 @@ describe('container', () => {
       .bindTransientClass(BazBaz)
       .bindTransientClass(Koo)
       .bindScopeResource(Resource, disposerFactory)
+      .bindConstant('Constant', constant)
       .bindConstant(UninjectableClass, new UninjectableClass())
       .bindObjectWrapper(FooWrapper);
+  });
+
+  it(`should can get constant list and valid values`, async (done) => {
+    const resp = container.getConstantIdentifierList();
+    expect(resp.length).toEqual(2);
+
+    const _constant = container.getConstantValue(resp[0]);
+    expect(_constant).toEqual(constant);
+
+    await container
+      .scope()
+      .inject(resp[1])
+      .run(obj => {
+        expect(obj instanceof UninjectableClass).toBe(true);
+      });
+    done();
   });
 
   it(`should inject an instance of registered class`, async (done) => {
