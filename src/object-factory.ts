@@ -12,15 +12,15 @@ export default class ObjectFactory {
    * @param {typeof ObjectWrapper} Class
    * @returns {T}
    */
-  public static get<T>(Class: typeof ObjectWrapper) {
+  public static get<T>(Class: {new(): ObjectWrapper<T>;}): T {
     var name: string = (<any>Class.prototype.constructor).name;
     var instance = <ObjectWrapper<T>>this.models[name];
     if (!instance) {
-      this.models[name] = instance = new Class<T>();
+      this.models[name] = instance = new Class();
       instance.initialize();
       instance.onInitialized();
-      return instance.Object;
+      return instance.Object as T;
     }
-    return instance.Object;
+    return instance.Object as T;
   }
 }

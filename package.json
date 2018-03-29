@@ -17,11 +17,11 @@
     "coverage": "gulp coverage"
   },
   "dependencies": {
-    "@types/bluebird": "3.5.5",
+    "@types/bluebird": "3.5.20",
     "@types/inversify": "2.0.32",
     "@types/jasmine": "^2.5.38",
-    "@types/lodash": "4.14.56",
-    "@types/node": "^6.0.48",
+    "@types/lodash": "4.14.106",
+    "@types/node": "^8.0.3",
     "@types/winston": "0.0.32",
     "bluebird": "<3.0.0",
     "inversify": "2.0.0-beta.5",
@@ -37,6 +37,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "remap-istanbul": "^0.6.4",
     "std-mocks": "^1.0.1",
-    "typescript": "<2.2"
+    "typescript": "2.8.1"
   }
 }
