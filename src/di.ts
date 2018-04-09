@@ -70,8 +70,8 @@ export namespace Di {
       return this;
     }
 
-    bindObjectWrapper(aClass: typeof ObjectWrapper): Container {
-      this.kernel.bind(aClass as any).toDynamicValue(() => ObjectFactory.get(aClass));
+    bindObjectWrapper(aClass: new (...args) => any): Container {
+      this.kernel.bind(aClass as any).toDynamicValue(() => ObjectFactory.get(aClass as any));
       return this;
     }
 
