@@ -204,6 +204,7 @@ export namespace Di {
   }
 
   export function scope(target: any, name: string, descriptor: PropertyDescriptor): any {
+    const oldDescriptorValue = descriptor.value;
     let method = descriptor.value;
     descriptor.value = function (...args: any[]) {
       let injectionTags = Reflect.getOwnMetadata(MetadataKeys.IslandInjectionTag, target, name) || [];
@@ -219,8 +220,11 @@ export namespace Di {
           return method.apply(this, args);
         });
     };
+
+    Object.keys(oldDescriptorValue).forEach((key) => {
+      descriptor.value[key] = oldDescriptorValue[key];
+    })
   }
 
   export var container = new Di.Container();
 }
-

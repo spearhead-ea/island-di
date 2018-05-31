@@ -60,10 +60,39 @@ class FooWrapper extends ObjectWrapper<Foo> {
   }
 }
 
+function addValueDecorator(target: any, name: string, descriptor: PropertyDescriptor): any {
+  descriptor.value.options = { test: 'o' };
+  descriptor.value.endpoints = { test: 'e' };
+}
+
+function returnDecorator(target: any, name: string, descriptor: PropertyDescriptor): any {
+  const oldDescriptorValue = descriptor.value;
+  descriptor.value = function () {
+    return {
+      endpoints: oldDescriptorValue.endpoints,
+      options: oldDescriptorValue.options
+    };
+  };
+}
+
 class TestScopeMethod {
   @Di.scope
   method(s: string, @inject foo?: Foo, @inject(Bar) bar?) {
     return {foo, bar};
+  }
+
+  @returnDecorator
+  @addValueDecorator
+  @Di.scope
+  injectionOrder1(s: string, @inject foo?: Foo, @inject(Bar) bar?) {
+    return { endpoints: null, options: null };
+  }
+
+  @returnDecorator
+  @Di.scope
+  @addValueDecorator
+  injectionOrder2(s: string, @inject foo?: Foo, @inject(Bar) bar?) {
+    return { endpoints: null, options: null };
   }
 }
 
@@ -204,6 +233,11 @@ describe('container', () => {
   it(`should provide scope and inject using decorator`, async (done) => {
     let obj = new TestScopeMethod();
     let {foo, bar} = await obj.method('a');
+    const testObject = { endpoints: { test: 'e' }, options: { test: 'o' } };
+    const res1 = obj.injectionOrder1('a');
+    const res2 = obj.injectionOrder2('a');
+    expect(res1).toEqual(testObject);
+    expect(res2).toEqual(testObject);
     expect(foo).toEqual(jasmine.any(Foo));
     expect(bar).toEqual(jasmine.any(Bar));
     done();
