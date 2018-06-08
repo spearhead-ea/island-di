@@ -25,17 +25,23 @@ export namespace Di {
   }
 
   export class Container {
-    private kernel: inversify.interfaces.Kernel;
+    private kernel: inversify.interfaces.Container;
     private scopeResources: ScopeResource[] = [];
     private boundConstants: InjectionIdentifier<any>[] = [];
 
     constructor() {
-      this.kernel = new inversify.Kernel();
+      this.kernel = new inversify.Container();
     }
 
-    bindTransientClass(aClass: new (...args) => any): Container {
-      this.decorateInjectable(aClass);
-      this.kernel.bind(aClass).to(aClass);
+    bindTransientClass(aClass: new (...args) => any, bClass?: new (...args) => any): Container {
+      // hack?: override some transient class. for unittest.
+      bClass = bClass || aClass;
+      if (this.kernel.isBound(aClass)) {
+        logger.debug(`rebind transientClass for test, from: ${aClass.name || aClass} to: ${bClass.name || bClass}`);
+        this.kernel.unbind(aClass);
+      }
+      this.decorateInjectable(bClass);
+      this.kernel.bind(aClass).to(bClass);
       return this;
     }
 
@@ -46,14 +52,18 @@ export namespace Di {
     }
 
     private decorateInjectable(aClass: new (...args) => any): void {
-      inversify.decorate((target: any) => {
-        // little hack: using unexported metadata
-        // @see https://github.com/inversify/InversifyJS/blob/master/src/annotation/injectable.ts
-        if (Reflect.hasOwnMetadata(MetadataKeys.InversifyParamTypes, target) === true) {
-          return;
-        }
-        return inversify.injectable()(target);
-      }, aClass);
+      try {
+        inversify.decorate((target: any) => {
+          // little hack: using unexported metadata
+          // @see https://github.com/inversify/InversifyJS/blob/master/src/annotation/injectable.ts
+          if (Reflect.hasOwnMetadata(MetadataKeys.InversifyParamTypes, target) === true) {
+            return;
+          }
+          return inversify.injectable()(target);
+        }, aClass);
+      } catch (e) {
+        logger.debug(`decorate injectable reports error. can ignore. ${e}`);
+      }
     }
 
     getConstantValue<T>(identifier: InjectionIdentifier<any>): T {
@@ -65,6 +75,11 @@ export namespace Di {
     }
 
     bindConstant(identifier: InjectionIdentifier<any>, value: any): Container {
+      // hack?: override some constant. for unittest.
+      if (this.kernel.isBound(identifier)) {
+        logger.debug(`rebind constant for test, ${(identifier as any).name || identifier}`);
+        this.kernel.unbind(identifier);
+      }
       this.kernel.bind(identifier).toConstantValue(value);
       this.boundConstants.push(identifier);
       return this;
@@ -83,7 +98,7 @@ export namespace Di {
   export type InjectionIdentifier<T> = string | (new (...args: any[]) => T);
 
   export class Scope {
-    private kernel: inversify.interfaces.Kernel;
+    private kernel: inversify.interfaces.Container;
     private objToBindScopeContext: {[name: string]: any};
     private injections: InjectionIdentifier<any>[] = [];
     private disposers: {[name: string]: Promise.Disposer<any>} = {};
@@ -106,7 +121,7 @@ export namespace Di {
     run<R>(task: (...args: any[]) => Promise<R> | R): Promise<R> {
       this.kernel.snapshot();
       this.bindScopeContext();
-      this.bindResources();
+      this.bindScopeResources();
       let injectedObjects = this.injectScopeParameters();
       this.kernel.restore();
 
@@ -130,9 +145,9 @@ export namespace Di {
       }
     }
 
-    private bindResources(): void {
+    private bindScopeResources(): void {
       this.scopeResources.forEach(resource => {
-        const name = this.kernel.getServiceIdentifierAsString(resource.constructor);
+        const name = inversify.getServiceIdentifierAsString(resource.constructor);
         const instanceBindName = name + '@instance';
 
         this.kernel
@@ -224,6 +239,10 @@ export namespace Di {
     Object.keys(oldDescriptorValue).forEach((key) => {
       descriptor.value[key] = oldDescriptorValue[key];
     })
+  }
+
+  export function bindTransientClass(aClass: new (...args) => any) {
+    container.bindTransientClass(aClass);
   }
 
   export var container = new Di.Container();

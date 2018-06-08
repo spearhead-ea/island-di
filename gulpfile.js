@@ -74,6 +74,7 @@ function istanbulTask() {
   const stream = gulp.src(['dist/spec/*.js']).pipe(jasmine());
   // https://github.com/gulpjs/gulp/issues/358 or gulp-plumber
   stream.on('error', (e) => {
+    console.error('error on running coverage: ', e);
     process.exit(1);
   });
   return stream.pipe(istanbul.writeReports());

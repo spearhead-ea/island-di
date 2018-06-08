@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "bluebird": "<3.0.0",
-    "inversify": "2.0.0-beta.5",
+    "inversify": "^4.13.0",
     "island-loggers": "next",
     "lodash": "^4.16.1",
     "reflect-metadata": "^0.1.8",
@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.20",
-    "@types/inversify": "^2.0.32",
     "@types/jasmine": "^2.5.38",
     "@types/lodash": "^4.14.106",
     "@types/node": "^8.0.3",

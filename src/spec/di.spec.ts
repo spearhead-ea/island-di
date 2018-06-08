@@ -5,14 +5,22 @@ import ObjectWrapper from '../object-wrapper';
 
 let inject = Di.inject;
 
+@Di.bindTransientClass
 class Foo {
   constructor() { }
 }
 
+@Di.bindTransientClass
 class Bar {
   constructor(@inject public foo: Foo) { }
 }
 
+@Di.bindTransientClass
+class OverBar {
+  constructor(@inject public foo: Foo) { }
+}
+
+@Di.bindTransientClass
 class FooFoo {
   constructor(@inject private scopeContext: Di.ScopeContext) { }
   getFooField() {
@@ -35,14 +43,17 @@ class Resource {
 class UninjectableClass {
 }
 
+@Di.bindTransientClass
 class Baz {
   constructor(@inject public resource: Resource) { }
 }
 
+@Di.bindTransientClass
 class BazBaz {
   constructor(@inject public resource: Resource) { }
 }
 
+@Di.bindTransientClass
 class Koo {
   constructor(@inject public value: UninjectableClass) { }
 }
@@ -102,16 +113,12 @@ describe('container', () => {
 
   beforeAll(() => {
     container
-      .bindTransientClass(Foo)
-      .bindTransientClass(Bar)
-      .bindTransientClass(Baz)
-      .bindTransientClass(FooFoo)
-      .bindTransientClass(BazBaz)
-      .bindTransientClass(Koo)
       .bindScopeResource(Resource, disposerFactory)
       .bindConstant('Constant', constant)
       .bindConstant(UninjectableClass, new UninjectableClass())
-      .bindObjectWrapper(FooWrapper);
+      .bindTransientClass(OverBar, Foo)
+      .bindObjectWrapper(FooWrapper)
+      ;
   });
 
   it(`should can get constant list and valid values`, async (done) => {
@@ -146,6 +153,16 @@ describe('container', () => {
       .inject(Bar)
       .run((bar: Bar) => {
         expect(bar.foo).toEqual(jasmine.any(Foo));
+      });
+    done();
+  });
+
+  it(`should override transient class by constant`, async (done) => {
+    await container
+      .scope()
+      .inject(OverBar)
+      .run((overBar: any) => {
+        expect(overBar).toEqual(jasmine.any(Foo));
       });
     done();
   });
