@@ -13,7 +13,7 @@
     "build": "gulp build",
     "watch": "gulp build && gulp watch",
     "clean": "gulp clean",
-    "test": "gulp build && DEBUG=* ISLAND_LOGGER_LEVEL=crit jasmine",
+    "test": "DEBUG=* ISLAND_LOGGER_LEVEL=crit gulp",
     "coverage": "gulp coverage"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "island-loggers": "next",
     "lodash": "^4.16.1",
     "reflect-metadata": "^0.1.8",
+    "source-map-support": "^0.4.2",
     "winston": "^2.2.0"
   },
   "devDependencies": {
@@ -30,12 +31,7 @@
     "@types/lodash": "^4.14.106",
     "@types/node": "^8.0.3",
     "@types/winston": "^0.0.32",
-    "gulp": "^3.9.1",
-    "gulp-istanbul": "^1.1.1",
-    "gulp-jasmine": "^2.4.1",
-    "gulp-sourcemaps": "^1.6.0",
-    "remap-istanbul": "^0.6.4",
-    "std-mocks": "^1.0.1",
-    "typescript": "^2.8.1"
+    "gulp": "^4.0.0",
+    "island-build": "next"
   }
 }
