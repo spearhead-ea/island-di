@@ -1,6 +1,6 @@
 {
   "name": "island-di",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "An island compatible di that understand distributed environment",
   "main": "dist/di.js",
   "typings": "dist/di.d.ts",
@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "<3.0.0",
     "inversify": "^4.13.0",
-    "island-loggers": "next",
+    "island-loggers": "^1.2.0",
     "lodash": "^4.16.1",
     "reflect-metadata": "^0.1.8",
     "source-map-support": "^0.4.2",
