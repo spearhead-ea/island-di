@@ -30,7 +30,6 @@
     "@types/jasmine": "^2.5.38",
     "@types/lodash": "^4.14.106",
     "@types/node": "^8.0.3",
-    "@types/winston": "^0.0.32",
     "gulp": "^4.0.0",
     "island-build": "next"
   }
