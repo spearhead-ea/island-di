@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "<3.0.0",
     "inversify": "^4.13.0",
-    "island-loggers": "^1.2.0",
+    "island-loggers": "next",
     "lodash": "^4.16.1",
     "reflect-metadata": "^0.1.8",
     "source-map-support": "^0.4.2",
